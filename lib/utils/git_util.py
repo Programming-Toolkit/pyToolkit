@@ -169,7 +169,10 @@ def get_changed_file_list_between_two_coms(com1, com2, work_dir):
     return flist
 
 
-def git_checkout(folder_path, commit_sha=None):
+def git_checkout(folder_path, commit_sha=None, force=False):
+    if force:
+        cmd = "git reset --hard"
+        subprocess.call(cmd, shell=True, cwd=folder_path)
     if commit_sha is None:
         args = ['--git-dir', folder_path + '/.git', '--work-tree', folder_path, 'checkout', 'master']
     else:
