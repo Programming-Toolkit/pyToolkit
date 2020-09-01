@@ -9,27 +9,24 @@
 -------------------------------------------------
 """
 
-import time
+import datetime
 
 
-def time_record(func):
-    def wrapper(*args, **kwargs):
-        t1 = time.time()
-        results = func(*args, **kwargs)
-        t2 = time.time()
-        print('%s took %0.3f ms' % (func.func_name, (t2 - t1) * 1000.0))
-        return results
+class Timer:
+    start_time = None
+    end_time = None
 
-    return wrapper
+    def set_start_time(self):
+        self.start_time = datetime.datetime.now()
 
+    def set_end_time(self):
+        self.end_time = datetime.datetime.now()
 
-@time_record
-def fun():
-    '''
-    This is an example to use @ to record start and end time for a specific function
-    '''
-    # do something here
-    pass
+    def get_time_diff_in_seconds(self):
+        if self.start_time is None or self.end_time is None:
+            return None
+        time_diff = self.end_time - self.start_time
+        return time_diff.seconds
 
 
 def get_current_time():
