@@ -10,8 +10,8 @@
 """
 
 import os
-from subprocess import call
 import shutil
+from subprocess import call
 
 
 def read_kth_line_of_file(file_path, k):
@@ -157,13 +157,19 @@ def copy_file(fpath, dst):
         subprocess.call(cmd, shell=True)
 
 
-def create_dir(dir_path, remove_if_exist):
-    if os.path.exists(dir_path) and not remove_if_exist:
-        print("{} exists!".format(dir_path))
-        exit(0)
-    if os.path.exists(dir_path) and remove_if_exist:
-        remove_dir(dir_path)
-    os.makedirs(dir_path, mode=0o777)
+def create_dir(path, remove_if_exist):
+    # if file
+    if os.path.isfile(path):
+        from pathlib import Path
+        path = Path(path).parent
+    # if folder
+    if os.path.isdir(path):
+        if os.path.exists(path) and not remove_if_exist:
+            print("{} exists!".format(path))
+            exit(0)
+        if os.path.exists(path) and remove_if_exist:
+            remove_dir(path)
+        os.makedirs(path, mode=0o777)
 
 
 def remove_dir(dir_path):
