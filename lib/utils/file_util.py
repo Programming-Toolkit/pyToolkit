@@ -95,8 +95,11 @@ def write_list2file(file_path, w_list):
     if os.path.exists(file_path):
         os.remove(file_path)
     with open(file_path, "a+") as f:
-        for item in w_list:
-            f.write(str(item) + "\n")
+        for idx, item in enumerate(w_list):
+            if idx != len(w_list)-1:
+                f.write(str(item) + "\n")
+            else:
+                f.write(str(item))
 
 
 def read_file_to_str(file_path):
