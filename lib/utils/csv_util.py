@@ -49,3 +49,12 @@ def read_csv_with_header(csv_fpath):
 def append_new_rows(rows, fpath):
     for row in rows:
         append_new_row(row, fpath)
+
+      
+def load_csv_with_key_attr(csv_fpath, key_attr):
+    res = dict()
+    with open(csv_fpath, 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            res[row[key_attr]] = row
+    return res
